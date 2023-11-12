@@ -17,6 +17,9 @@ import { SideBarComponent } from './components/side-bar/side-bar.component';
   ],
   imports: [
     CommonModule
+  ],
+  exports: [  // De las declaraciones descritas, se definira cuales quiero exportar a otros componentes.
+    SideBarComponent
   ]
 })
 export class SharedModule { }
