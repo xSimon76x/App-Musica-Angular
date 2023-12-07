@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { HeaderUserComponent } from './components/header-user/header-user.component';
 import { MediaPlayerComponent } from './components/media-player/media-player.component';
 import { SideBarComponent } from './components/side-bar/side-bar.component';
+import { CardPlayerComponent } from './components/card-player/card-player.component';
+import { SectionGenericComponent } from './components/section-generic/section-generic.component';
 
 // creado con el comando de -> ng g m shared/shared --flat
 // con esto se evita que se creen dos carpetas para luego crear el modulo
@@ -13,7 +15,9 @@ import { SideBarComponent } from './components/side-bar/side-bar.component';
   declarations: [
     HeaderUserComponent,
     MediaPlayerComponent,
-    SideBarComponent
+    SideBarComponent,
+    CardPlayerComponent,
+    SectionGenericComponent
   ],
   imports: [
     CommonModule
@@ -21,7 +25,9 @@ import { SideBarComponent } from './components/side-bar/side-bar.component';
   exports: [  // De las declaraciones descritas, se definira cuales quiero exportar a otros componentes.
     SideBarComponent,
     MediaPlayerComponent,
-    HeaderUserComponent
+    HeaderUserComponent,
+    CardPlayerComponent,
+    SectionGenericComponent
   ]
 })
 export class SharedModule { }
