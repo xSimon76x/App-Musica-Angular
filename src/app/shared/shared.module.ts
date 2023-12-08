@@ -5,6 +5,8 @@ import { MediaPlayerComponent } from './components/media-player/media-player.com
 import { SideBarComponent } from './components/side-bar/side-bar.component';
 import { CardPlayerComponent } from './components/card-player/card-player.component';
 import { SectionGenericComponent } from './components/section-generic/section-generic.component';
+import { PlayListHeaderComponent } from './components/play-list-header/play-list-header.component';
+import { PlayListBodyComponent } from './components/play-list-body/play-list-body.component';
 
 // creado con el comando de -> ng g m shared/shared --flat
 // con esto se evita que se creen dos carpetas para luego crear el modulo
@@ -17,7 +19,9 @@ import { SectionGenericComponent } from './components/section-generic/section-ge
     MediaPlayerComponent,
     SideBarComponent,
     CardPlayerComponent,
-    SectionGenericComponent
+    SectionGenericComponent,
+    PlayListHeaderComponent,
+    PlayListBodyComponent
   ],
   imports: [
     CommonModule
@@ -27,7 +31,9 @@ import { SectionGenericComponent } from './components/section-generic/section-ge
     MediaPlayerComponent,
     HeaderUserComponent,
     CardPlayerComponent,
-    SectionGenericComponent
+    SectionGenericComponent,
+    PlayListHeaderComponent,
+    PlayListBodyComponent
   ]
 })
 export class SharedModule { }
