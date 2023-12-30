@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-side-bar',
@@ -32,7 +33,8 @@ export class SideBarComponent implements OnInit {
 
   customOptions: Array<any> = [];
 
-  constructor() {}
+  // Solo para uso de la funcion de goTo() lo agregado del router
+  constructor(private router: Router) {}
 
   ngOnInit(): void {
     //TODO es un ciclo, que se utiliza para las llamadas a APIs
@@ -41,17 +43,20 @@ export class SideBarComponent implements OnInit {
       {
         name:'Home',
         icon: 'uil uil-estate',
-        router: ['/']
+        router: ['/'],
+        queryParams: { key1: 'valor1' }
       },
       {
         name:'Buscar',
         icon: 'uil uil-search',
-        router: ['/', 'history']
+        router: ['/', 'history'],
+        queryParams: { key2: 'valor2' }
       },
       {
         name:'Tu biblioteca',
         icon: 'uil uil-chart',
-        router: ['/', 'favorites']
+        router: ['/', 'favorites'],
+        queryParams: { key3: 'valor3' }
       },
     ];
 
@@ -84,7 +89,18 @@ export class SideBarComponent implements OnInit {
         router: ['/']
       }
     ];
-    
-    
+  }
+
+  // Solo en caso de usar la opcion de (click)
+  // se usa esta funcion para redireccionar a una ruta
+  // integrando queryParams
+  goTo($event: any): void{
+    this.router.navigate(['/', 'favorites'], {
+      queryParams: {
+        key1: 'value1',
+        key2: 'value2',
+      }
+    });
+    console.log($event);
   }
 }
