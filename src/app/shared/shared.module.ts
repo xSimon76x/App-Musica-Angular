@@ -9,6 +9,7 @@ import { PlayListHeaderComponent } from './components/play-list-header/play-list
 import { PlayListBodyComponent } from './components/play-list-body/play-list-body.component';
 import { RouterModule } from '@angular/router';
 import { OrderListPipe } from './pipe/order-list.pipe';
+import { ImgBrokenDirective } from './directives/img-broken.directive';
 
 // creado con el comando de -> ng g m shared/shared --flat
 // con esto se evita que se creen dos carpetas para luego crear el modulo
@@ -24,7 +25,8 @@ import { OrderListPipe } from './pipe/order-list.pipe';
     SectionGenericComponent,
     PlayListHeaderComponent,
     PlayListBodyComponent,
-    OrderListPipe
+    OrderListPipe,
+    ImgBrokenDirective
   ],
   imports: [
     CommonModule,
@@ -38,7 +40,8 @@ import { OrderListPipe } from './pipe/order-list.pipe';
     SectionGenericComponent,
     PlayListHeaderComponent,
     PlayListBodyComponent,
-    OrderListPipe
+    OrderListPipe,
+    ImgBrokenDirective
   ]
 })
 export class SharedModule { }
