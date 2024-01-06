@@ -43,7 +43,7 @@ export class SideBarComponent implements OnInit {
       {
         name:'Home',
         icon: 'uil uil-estate',
-        router: ['/'],
+        router: ['/', 'home'],
         queryParams: { key1: 'valor1' }
       },
       {

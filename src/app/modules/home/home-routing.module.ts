@@ -5,7 +5,6 @@ import { HomePageComponent } from './pages/home-page/home-page.component';
 //Parametros -> dashboard/:iduser 
 
 const routes: Routes = [
-  
   {
     // path:'dashboard', //TODO: localhost:4200/home/dashboard
     // component: HomePageComponent
@@ -19,6 +18,10 @@ const routes: Routes = [
   {
     path: 'history',
     loadChildren: () => import('@modules/history/history.module').then( m => m.HistoryModule)
+  },
+  {
+    path: 'home',
+    loadChildren: () => import('@modules/home/home.module').then( m => m.HomeModule)
   },
 ];
 
