@@ -33,15 +33,31 @@ export class TracksPageComponent implements OnInit, OnDestroy{
     //   });
 
     //   this.listObserver$ = [observer1$, observer2$];
+    this.loadDataRandom();
+    this.loadDataAll();  
+  }
 
+  async loadDataAll(): Promise<any> {
     this.trackService.getAllTracks$()
-      .subscribe( response => {
-        this.tracksTrending = response;
+      .subscribe({
+        next: (response) => {
+          this.tracksTrending = response;
+        },
+        error: () => {
+          console.log('Error de conexion getAllTracks');
+        }
       })
+  }
 
+  loadDataRandom(): void {
     this.trackService.getAllRandom$()
-      .subscribe( response => {
-        this.tracksRandom = response;
+      .subscribe({
+        next: (response) => {
+          this.tracksRandom = response;
+        },
+        error: () => {
+          console.log('Error de conexion getAllRandom');
+        }
       })
   }
 

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { TracksModel } from '@core/models/tracks.model';
-import { Observable, map, mergeMap, tap } from 'rxjs';
+import { Observable, catchError, map, mergeMap, of, tap } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environments';
 
@@ -41,6 +41,12 @@ export class TrackService {
       .pipe(
         map( ({ data }: any) => {
           return data;
+        }),
+        catchError( (error: any) => {
+
+          console.log('Algo paso revisame!!!', error);
+
+          return of([])
         })
       )
   }
@@ -54,7 +60,7 @@ export class TrackService {
 
   getAllRandom$(): Observable<any> {
     
-    return this.httpCliente.get(this.URL + '/tracks')
+    return this.httpCliente.get(this.URL + '/tracks') // Para provocar un error poner tracks123
       .pipe(
         //TODO Solo puede haber un solo map
         // map( ({ data }: any) => {
@@ -66,7 +72,14 @@ export class TrackService {
         mergeMap(({ data }: any) => this.skyById(data, 2 )),
         
         //TODO El tap, es para poder ejecutar la data para algun console.log por ejemplo
-        tap( data => console.log(data))
+        //tap( data => console.log(data))
+
+        catchError( (error: any) => {
+
+          console.log('Algo paso revisame!!!', error);
+
+          return of([])
+        })
       )      
   }
 }
