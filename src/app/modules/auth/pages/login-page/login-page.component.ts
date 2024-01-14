@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '@modules/auth/services/auth.service';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-login-page',
@@ -9,8 +10,9 @@ import { AuthService } from '@modules/auth/services/auth.service';
 })
 export class LoginPageComponent {
   formLogin: FormGroup = new FormGroup({});
+  errorSession: boolean = false;
 
-  constructor( private asAuthService: AuthService) {}
+  constructor( private asAuthService: AuthService, private cookie: CookieService) {}
 
   ngOnInit(): void {
     this.formLogin = new FormGroup(
@@ -30,7 +32,18 @@ export class LoginPageComponent {
 
   sendLogin(): void {
     const { email, password } = this.formLogin.value;
-    this.asAuthService.sendCredentials(email, password );
+    this.asAuthService.sendCredentials(email, password )
+      .subscribe( {
+        next: (response :any) => {
+          this.errorSession = false;
+
+        },
+        error: () => {
+          console.log('Error de conexion con este usuario');
+          this.errorSession = true;
+        }
+      }
+    );
     
   }
 }
