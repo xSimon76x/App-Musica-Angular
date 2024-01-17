@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { TracksModel } from '@core/models/tracks.model';
 import { Observable, catchError, map, mergeMap, of, tap } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environments';
 
 @Injectable({
@@ -37,7 +37,11 @@ export class TrackService {
 
   //TODO Devolver todas las canciones
   getAllTracks$(): Observable<any> {
-    return this.httpCliente.get(this.URL + '/tracks')
+    return this.httpCliente.get(this.URL + '/tracks', {
+      headers: new HttpHeaders({
+        authorization: 'Bearer TOKEN'
+      })
+    })
       .pipe(
         map( ({ data }: any) => {
           return data;
