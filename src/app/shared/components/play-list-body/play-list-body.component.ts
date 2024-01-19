@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import * as dataRaw from '../../../../app/data/tracks.json'
 import { TracksModel } from '@core/models/tracks.model';
 
@@ -9,7 +9,7 @@ import { TracksModel } from '@core/models/tracks.model';
 })
 export class PlayListBodyComponent implements OnInit{
 
-  tracks: TracksModel[] = [];
+  @Input() tracks: TracksModel[] = [];
 
   optionSort: {
     property: string | null, 
