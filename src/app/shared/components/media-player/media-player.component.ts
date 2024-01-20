@@ -25,13 +25,26 @@ export class MediaPlayerComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    const observer1: Subscription = this.multimediaService.callBack.subscribe(
-      (response: TracksModel) => {
-        console.log("recibiendo camcion: " + response.name);
-      }
-    )
+    // const observer1: Subscription = this.multimediaService.callBack.subscribe(
+    //   (response: TracksModel) => {
+    //     console.log("recibiendo camcion: " + response.name);
+    //   }
+    // )
 
-    this.listObservers = [observer1];
+    // this.listObservers = [observer1];
+
+    const observable1$ = this.multimediaService.myObservable1$
+    .subscribe({
+      next: (responseOk) => {
+        //TODO next()
+        console.log('El agua llega perfecto!', responseOk);
+      },
+      error: (responseFail) => {
+        console.log('Se tapo la tuberia', responseFail);
+      }
+    });
+
+    this.listObservers = [observable1$];
   }
 
   ngOnDestroy(): void {
