@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TracksModel } from '@core/models/tracks.model';
 import { SearchService } from '@modules/history/services/search.service';
+import { Observable, of } from 'rxjs';
 
 @Component({
   selector: 'app-history-page',
@@ -9,7 +10,7 @@ import { SearchService } from '@modules/history/services/search.service';
 })
 export class HistoryPageComponent implements OnInit{
 
-  listResults: TracksModel[] = [];
+  listResults$: Observable<any> = of([]);
 
   constructor( private searchService: SearchService) {}
 
@@ -18,15 +19,7 @@ export class HistoryPageComponent implements OnInit{
   }
 
   receiveData(event: string): void {
-    this.searchService.searchTracks$(event)
-    .subscribe({
-      next: ({ data } :any) => {
-        this.listResults = data;
-      },
-      error: () => {
-        console.log('Error de conexion con receiveData');
-      }
-    })
+    this.listResults$ = this.searchService.searchTracks$(event);
   }
 
 }

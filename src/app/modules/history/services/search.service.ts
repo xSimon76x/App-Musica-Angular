@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { environment } from 'src/environments/environments';
 
 @Injectable({
@@ -13,6 +13,9 @@ export class SearchService {
   constructor( private http: HttpClient) { }
 
   searchTracks$(term: string): Observable<any> {
-    return this.http.get(this.URL + '/tracks');
+    return this.http.get(this.URL + '/tracks')
+    .pipe(
+      map(( dataRaw: any ) => dataRaw.data)
+    );
   }
 }
