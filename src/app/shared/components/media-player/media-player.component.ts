@@ -24,6 +24,7 @@ export class MediaPlayerComponent implements OnInit, OnDestroy {
 
   }
 
+  //!? ngOnInit: Es el primer ciclo de vida ejecutable del componente, luego del CONSTRUCTOR(){}
   ngOnInit(): void {
     // const observer1: Subscription = this.multimediaService.callBack.subscribe(
     //   (response: TracksModel) => {
@@ -33,7 +34,7 @@ export class MediaPlayerComponent implements OnInit, OnDestroy {
 
     // this.listObservers = [observer1];
 
-    const observable1$ = this.multimediaService.myObservable1$
+    const observable1$ = this.multimediaService.myObservable3$
     .subscribe({
       next: (responseOk) => {
         //TODO next()
