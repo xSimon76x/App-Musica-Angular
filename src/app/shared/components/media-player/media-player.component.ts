@@ -20,7 +20,7 @@ export class MediaPlayerComponent implements OnInit, OnDestroy {
 
   listObservers: Array<Subscription> = [];
 
-  constructor( private multimediaService: MultimediaService) {
+  constructor( public multimediaService: MultimediaService) {
 
   }
 
@@ -46,6 +46,17 @@ export class MediaPlayerComponent implements OnInit, OnDestroy {
     });
 
     this.listObservers = [observable1$];
+
+    this.multimediaService.trackInfo$
+    .subscribe({
+      next: (responseOk) => {
+
+        console.log('Conexion a trackInfo!', responseOk);
+      },
+      error: (responseFail) => {
+        console.log('Error trackInfo mediaplayer', responseFail);
+      }
+    });
   }
 
   ngOnDestroy(): void {

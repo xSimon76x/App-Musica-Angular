@@ -1,4 +1,5 @@
 import { EventEmitter, Injectable } from '@angular/core';
+import { TracksModel } from '@core/models/tracks.model';
 import { BehaviorSubject, Observable, Observer, Subject } from 'rxjs';
 
 @Injectable({
@@ -36,28 +37,52 @@ export class MultimediaService {
   //!? en uso del manejo de las propiedades; next, complete, error
   myObservable3$: BehaviorSubject<any> = new BehaviorSubject('💯💯💯💯');
 
-  
+  public audio!:HTMLAudioElement;
+  public trackInfo$: BehaviorSubject<any> = new BehaviorSubject(undefined);
+
+
 
   constructor() {
-    setTimeout(() => {
-      this.myObservable2$.next('💥💥💥💥💥');
-    }, 2000);
+    // setTimeout(() => {
+    //   this.myObservable2$.next('💥💥💥💥💥');
+    // }, 2000);
 
-    setTimeout(() => {
-      this.myObservable2$.error('💢💢💢💢💢');
-    }, 2500);
+    // setTimeout(() => {
+    //   this.myObservable2$.error('💢💢💢💢💢');
+    // }, 2500);
 
 
-    setTimeout(() => {
-      this.myObservable3$.next('💯💯💥💥💥💥💥');
-    }, 2000);
+    // setTimeout(() => {
+    //   this.myObservable3$.next('💯💯💥💥💥💥💥');
+    // }, 2000);
 
-    setTimeout(() => {
-      this.myObservable3$.error('💯💯💢💢💢💢💢');
-    }, 2500);
+    // setTimeout(() => {
+    //   this.myObservable3$.error('💯💯💢💢💢💢💢');
+    // }, 2500);
+
+    this.audio = new Audio();
+
+    this.trackInfo$.subscribe({
+      next: (responseOk) => {
+        if (responseOk) {
+          this.setAudio(responseOk);
+        }
+      },
+      error: (responseFail) => {
+        console.log('Error trackInfo mediaplayer', responseFail);
+      }
+    })
+
+    
   }
 
   private listenAllEvents(): void {
 
+  }
+
+  //TODO Funciones publicas
+  public setAudio(track: TracksModel): void {
+    this.audio.src = track.url;
+    this.audio.play();
   }
 }
