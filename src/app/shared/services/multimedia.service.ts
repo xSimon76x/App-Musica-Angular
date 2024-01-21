@@ -39,7 +39,8 @@ export class MultimediaService {
 
   public audio!:HTMLAudioElement;
   public trackInfo$: BehaviorSubject<any> = new BehaviorSubject(undefined);
-
+  public timeElapsed$: BehaviorSubject<string> = new BehaviorSubject('00:00');
+  public timeRemaining$: BehaviorSubject<string> = new BehaviorSubject('-00:00');
 
 
   constructor() {
@@ -73,11 +74,51 @@ export class MultimediaService {
       }
     })
 
-    
+    this.listenAllEvents();
   }
 
   private listenAllEvents(): void {
+    this.audio.addEventListener('timeupdate', this.calculateTime , false); 
+  }
 
+  private calculateTime = (): void => {
+    const { duration, currentTime } = this.audio;
+
+    this.setTimeElapsed(currentTime);
+    this.setRemaining(currentTime, duration);
+  }
+
+  private setTimeElapsed(currentTime: number): void {
+    let seconds = Math.floor(currentTime % 60);
+    let minutes = Math.floor( (currentTime / 60) % 60);
+
+    const desplaySecond = (seconds < 10) ? '0'+seconds : seconds;
+    const desplayMinutes = (minutes < 10) ? '0'+minutes : minutes;
+
+    const displayFormat = desplayMinutes +':'+ desplaySecond;
+
+    this.timeElapsed$.next(displayFormat);
+    
+  }
+
+  private setRemaining(currentTime: number, duration: number): void {
+    
+    if (isNaN(duration) && isNaN(duration)) {
+      this.timeRemaining$.next('-00:00');
+      return;
+    }
+
+    let timeLeft = duration - currentTime;
+    let seconds = Math.floor(timeLeft % 60);
+    let minutes = Math.floor( (timeLeft / 60) % 60);
+
+    const desplaySecond = (seconds < 10) ? '0'+seconds : seconds;
+    const desplayMinutes = (minutes < 10) ? '0'+minutes : minutes;
+
+    const displayFormat = '-'+desplayMinutes +':'+ desplaySecond;
+
+
+    this.timeRemaining$.next(displayFormat);
   }
 
   //TODO Funciones publicas
