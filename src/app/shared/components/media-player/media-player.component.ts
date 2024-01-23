@@ -19,6 +19,7 @@ export class MediaPlayerComponent implements OnInit, OnDestroy {
   }
 
   listObservers: Array<Subscription> = [];
+  state: string = 'paused';
 
   constructor( public multimediaService: MultimediaService) {
 
@@ -45,7 +46,7 @@ export class MediaPlayerComponent implements OnInit, OnDestroy {
       }
     });
 
-    this.listObservers = [observable1$];
+    //this.listObservers = [observable1$];
 
     this.multimediaService.trackInfo$
     .subscribe({
@@ -57,6 +58,18 @@ export class MediaPlayerComponent implements OnInit, OnDestroy {
         console.log('Error trackInfo mediaplayer', responseFail);
       }
     });
+
+    const observer1$ = this.multimediaService.playerStatus$
+    .subscribe({
+      next: (state) => {
+        this.state = state;
+      },
+      error: (responseFail) => {
+        console.log('Error multimediaService.playerStatus', responseFail);
+      }
+    });
+
+    this.listObservers = [observer1$];
   }
 
   ngOnDestroy(): void {
