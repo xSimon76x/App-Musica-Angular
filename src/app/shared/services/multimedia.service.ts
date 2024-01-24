@@ -42,6 +42,7 @@ export class MultimediaService {
   public timeElapsed$: BehaviorSubject<string> = new BehaviorSubject('00:00');
   public timeRemaining$: BehaviorSubject<string> = new BehaviorSubject('-00:00');
   public playerStatus$: BehaviorSubject<string> = new BehaviorSubject('paused');
+  public playerPorcentage$: BehaviorSubject<number> = new BehaviorSubject(0);
 
 
   constructor() {
@@ -112,6 +113,7 @@ export class MultimediaService {
 
     this.setTimeElapsed(currentTime);
     this.setRemaining(currentTime, duration);
+    this.setPorcentage(currentTime, duration);
   }
 
   private setTimeElapsed(currentTime: number): void {
@@ -145,6 +147,16 @@ export class MultimediaService {
 
 
     this.timeRemaining$.next(displayFormat);
+  }
+
+  private setPorcentage(currentTime: number, duration: number): void {
+    //TODO  duration --> 100%
+    //TODO  currentTime --> (x)
+    //TODO  (currentTime * 100) / duration
+
+    let porcentage = ( currentTime * 100 ) / duration;
+
+    this.playerPorcentage$.next( porcentage );
   }
 
   //TODO Funciones publicas
