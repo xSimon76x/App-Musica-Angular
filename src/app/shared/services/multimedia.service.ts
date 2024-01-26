@@ -104,10 +104,6 @@ export class MultimediaService {
     }
   }
 
-  public togglePlayer(): void {
-    (this.audio.paused) ? this.audio.play() : this.audio.pause()
-  }
-
   private calculateTime = (): void => {
     const { duration, currentTime } = this.audio;
 
@@ -163,5 +159,15 @@ export class MultimediaService {
   public setAudio(track: TracksModel): void {
     this.audio.src = track.url;
     this.audio.play();
+  }
+
+  public togglePlayer(): void {
+    (this.audio.paused) ? this.audio.play() : this.audio.pause()
+  }
+
+  public seekAudio(percentage: number): void {
+    const { duration } = this.audio;
+    const percentageToSecond = (percentage * duration) / 100;
+    this.audio.currentTime = percentageToSecond;
   }
 }
