@@ -33,4 +33,19 @@ export class AuthService {
       );
 
   }
+  sendCredentialsTesting( email: string, password: string): Observable<any> {
+    
+    const body = {
+      email,
+      password
+    }
+
+    return this.http.post(this.URL+"/auth/login", body);
+
+  }
+
+  suma(a: number, b: number): number {
+    return a + b
+  }
+  
 }
