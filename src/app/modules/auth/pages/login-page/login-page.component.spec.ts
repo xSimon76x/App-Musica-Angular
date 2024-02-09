@@ -10,18 +10,15 @@ describe('LoginPageComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         //Importaciones de modulos u objetos usados
         HttpClientTestingModule,
         FormsModule,
-        ReactiveFormsModule
-      ],
-      declarations: [
+        ReactiveFormsModule,
         //Declarar componentes o elementos, usados en el componente principal
-        LoginPageComponent,
-        
-      ]
-    });
+        LoginPageComponent
+    ]
+});
     fixture = TestBed.createComponent(LoginPageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

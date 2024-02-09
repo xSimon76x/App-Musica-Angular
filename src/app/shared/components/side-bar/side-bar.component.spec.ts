@@ -10,13 +10,11 @@ describe('SideBarComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         RouterModule.forRoot([]),
-      ],
-      declarations: [
-        SideBarComponent
-      ]
-    });
+        SideBarComponent,
+    ]
+});
     fixture = TestBed.createComponent(SideBarComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

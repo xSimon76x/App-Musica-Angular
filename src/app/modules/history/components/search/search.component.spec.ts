@@ -10,14 +10,12 @@ describe('SearchComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         HttpClientTestingModule,
-        FormsModule
-      ],
-      declarations: [
+        FormsModule,
         SearchComponent
-      ],
-    });
+    ],
+});
     fixture = TestBed.createComponent(SearchComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

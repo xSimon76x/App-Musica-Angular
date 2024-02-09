@@ -1,8 +1,9 @@
 import { Directive, ElementRef, HostListener, Input } from '@angular/core';
 
 @Directive({
-  // solo aplicado para elementos html img
-  selector: 'img[appImgBroken]'
+    // solo aplicado para elementos html img
+    selector: 'img[appImgBroken]',
+    standalone: true
 })
 export class ImgBrokenDirective {
   @Input() customImg: string | boolean = false;

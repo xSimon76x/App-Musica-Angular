@@ -2,7 +2,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { TracksModel } from '@core/models/tracks.model';
 
 @Pipe({
-  name: 'orderList'
+    name: 'orderList',
+    standalone: true
 })
 // Es una manera de manipular/transformar la data de
 // ArraysList, string, int, etc para sacar una nueva data

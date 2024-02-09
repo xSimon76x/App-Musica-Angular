@@ -12,13 +12,11 @@ describe('FavoritesPageComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [
-        FavoritesPageComponent,
+    imports: [FavoritesPageComponent,
         PlayListHeaderComponent,
         PlayListBodyComponent,
-        OrderListPipe
-      ]
-    });
+        OrderListPipe]
+});
     fixture = TestBed.createComponent(FavoritesPageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

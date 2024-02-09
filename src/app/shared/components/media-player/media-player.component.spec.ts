@@ -8,8 +8,8 @@ describe('MediaPlayerComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [MediaPlayerComponent]
-    });
+    imports: [MediaPlayerComponent]
+});
     fixture = TestBed.createComponent(MediaPlayerComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

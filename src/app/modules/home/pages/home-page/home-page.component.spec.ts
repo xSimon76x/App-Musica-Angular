@@ -10,15 +10,13 @@ describe('HomePageComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [
-        RouterModule.forRoot([])
-      ],
-      declarations: [
+    imports: [
+        RouterModule.forRoot([]),
         HomePageComponent,
         SideBarComponent,
         MediaPlayerComponent
-      ]
-    });
+    ]
+});
     fixture = TestBed.createComponent(HomePageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

@@ -15,18 +15,16 @@ describe('HistoryPageComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         HttpClientTestingModule,
         RouterTestingModule,
-        FormsModule
-      ],
-      declarations: [
+        FormsModule,
         HistoryPageComponent,
         PlayListBodyComponent,
         SearchComponent,
         OrderListPipe
-      ]
-    });
+    ]
+});
     fixture = TestBed.createComponent(HistoryPageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
