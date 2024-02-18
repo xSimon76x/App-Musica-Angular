@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { TracksModel } from '@core/models/tracks.model';
 import { TrackService } from '@modules/tracks/services/track.service';
 import { Subscription } from 'rxjs';
@@ -16,8 +16,7 @@ export class TracksPageComponent implements OnInit, OnDestroy{
   tracksTrending: Array<TracksModel> = [];
   tracksRandom: Array<TracksModel> = [];
   listObserver$: Array<Subscription> = [];
-
-  constructor( private trackService: TrackService){ }
+  private trackService = inject(TrackService);
 
   ngOnInit(): void {
     // const { data }: any = (dataRaw as any).default;
