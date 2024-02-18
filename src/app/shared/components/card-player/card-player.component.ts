@@ -12,8 +12,8 @@ import { NgIf, NgClass } from '@angular/common';
     imports: [NgIf, ImgBrokenDirective, NgClass]
 })
 export class CardPlayerComponent implements OnInit{
-  @Input() mode: 'small' | 'big' = 'small';
-  @Input() track: TracksModel = {
+  @Input({ required: true }) mode: 'small' | 'big' = 'small';
+  @Input({ required: true , alias: 'trackObject'}) track: TracksModel = {
     _id: 1,
     name: '',
     album: '',
