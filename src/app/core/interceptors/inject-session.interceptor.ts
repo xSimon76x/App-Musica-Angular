@@ -1,9 +1,10 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import {
   HttpRequest,
   HttpHandler,
   HttpEvent,
-  HttpInterceptor
+  HttpInterceptor,
+  HttpHandlerFn
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
@@ -41,4 +42,33 @@ export class InjectSessionInterceptor implements HttpInterceptor {
     }
     // return next.handle(request);
   }
+}
+
+//TODO Interceptor utilizado para Angular v16
+export const authorizationInterceptor = (
+  request: HttpRequest<unknown>, next: HttpHandlerFn
+) => {
+  
+  const cookieService = inject(CookieService)
+
+  try {
+    const token = cookieService.get('token');
+
+    let newRequest = request;
+
+    newRequest = request.clone(
+      {
+        setHeaders: {
+          authorization: 'Bearer ' + token,
+          VERSION_ANGULAR: '16'
+        }
+      }
+    )
+      // console.log(newRequest)
+    return next(newRequest);
+  } catch (error) {
+    console.log('Error en el inyector!', error);
+    return next(request);
+  }
+
 }
