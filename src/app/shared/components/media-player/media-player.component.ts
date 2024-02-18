@@ -1,8 +1,16 @@
-import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { 
+  Component, 
+  DestroyRef, 
+  ElementRef, 
+  OnInit, 
+  ViewChild, 
+  inject 
+} from '@angular/core';
 import { TracksModel } from '@core/models/tracks.model';
 import { MultimediaService } from '@shared/services/multimedia.service';
 import { Subscription } from 'rxjs'; //TODO Programacion reactiva
 import { NgTemplateOutlet, NgIf, NgClass, AsyncPipe } from '@angular/common';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
 
 @Component({
     selector: 'app-media-player',
@@ -11,7 +19,7 @@ import { NgTemplateOutlet, NgIf, NgClass, AsyncPipe } from '@angular/common';
     standalone: true,
     imports: [NgTemplateOutlet, NgIf, NgClass, AsyncPipe]
 })
-export class MediaPlayerComponent implements OnInit, OnDestroy {
+export class MediaPlayerComponent implements OnInit {
 
   mockCover: TracksModel = {
     cover: 'https://i.pinimg.com/1200x/8a/ec/bd/8aecbdbb9aa2bd92ecf0cbe31e2aafe6.jpg',
@@ -21,25 +29,21 @@ export class MediaPlayerComponent implements OnInit, OnDestroy {
     _id: 1
   }
 
-  listObservers: Array<Subscription> = [];
   state: string = 'paused';
   @ViewChild('progressBar') progressBar: ElementRef = new ElementRef('');
+  multimediaService = inject(MultimediaService);
+  destroyRef = inject(DestroyRef)
 
-  constructor( public multimediaService: MultimediaService) {
+
+  constructor( ) {
 
   }
 
   //!? ngOnInit: Es el primer ciclo de vida ejecutable del componente, luego del CONSTRUCTOR(){}
   ngOnInit(): void {
-    // const observer1: Subscription = this.multimediaService.callBack.subscribe(
-    //   (response: TracksModel) => {
-    //     console.log("recibiendo camcion: " + response.name);
-    //   }
-    // )
 
-    // this.listObservers = [observer1];
-
-    const observable1$ = this.multimediaService.myObservable3$
+    this.multimediaService.myObservable3$
+    .pipe(takeUntilDestroyed(this.destroyRef))
     .subscribe({
       next: (responseOk) => {
         //TODO next()
@@ -50,9 +54,8 @@ export class MediaPlayerComponent implements OnInit, OnDestroy {
       }
     });
 
-    //this.listObservers = [observable1$];
-
     this.multimediaService.trackInfo$
+    .pipe(takeUntilDestroyed(this.destroyRef))
     .subscribe({
       next: (responseOk) => {
 
@@ -63,7 +66,8 @@ export class MediaPlayerComponent implements OnInit, OnDestroy {
       }
     });
 
-    const observer1$ = this.multimediaService.playerStatus$
+    this.multimediaService.playerStatus$
+    .pipe(takeUntilDestroyed(this.destroyRef))
     .subscribe({
       next: (state) => {
         this.state = state;
@@ -73,13 +77,6 @@ export class MediaPlayerComponent implements OnInit, OnDestroy {
       }
     });
 
-    this.listObservers = [observer1$];
-  }
-
-  ngOnDestroy(): void {
-    // Este es la ultima funcion que se ejecuta, luego del ngOnInit
-
-    this.listObservers.forEach( u => u.unsubscribe());
   }
 
   handlePosition(event: MouseEvent): void {
