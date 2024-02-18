@@ -47,7 +47,7 @@ export class MediaPlayerComponent implements OnInit {
     .subscribe({
       next: (responseOk) => {
         //TODO next()
-        console.log('El agua llega perfecto!', responseOk);
+        // console.log('El agua llega perfecto!', responseOk);
       },
       error: (responseFail) => {
         console.log('Se tapo la tuberia', responseFail);

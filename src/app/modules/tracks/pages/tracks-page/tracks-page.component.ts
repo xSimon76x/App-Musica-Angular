@@ -1,17 +1,24 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { TracksModel } from '@core/models/tracks.model';
 import { Subscription } from 'rxjs';
 import { SectionGenericComponent } from '../../../../shared/components/section-generic/section-generic.component';
 import { getAllRandom$, getAllTracks$ } from './function-inyect';
+import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'app-tracks-page',
     templateUrl: './tracks-page.component.html',
     styleUrls: ['./tracks-page.component.css'],
     standalone: true,
-    imports: [SectionGenericComponent]
+    imports: [SectionGenericComponent, CommonModule]
 })
+
+//? Se necesita el CommonModule, para usar el "json" en el html
+
 export class TracksPageComponent {
+
+  @Input() currentUser: any;
+  @Input() category: any;
 
   tracksTrending: Array<TracksModel> = [];
   tracksRandom: Array<TracksModel> = [];

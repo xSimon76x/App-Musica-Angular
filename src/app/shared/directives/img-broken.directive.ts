@@ -9,7 +9,7 @@ export class ImgBrokenDirective {
   @Input() customImg: string | boolean = false;
   @HostListener('error') handleError(): void {
     const elNative = this.elHost.nativeElement;
-    console.log("La img de la cancion de nombre: '" + elNative.alt + "'. A reventado ");
+    // console.log("La img de la cancion de nombre: '" + elNative.alt + "'. A reventado ");
     // Imagen de respaldo, en caso de que alguna no cargue
     // elNative.src = 'https://marketing4ecommerce.mx/wp-content/uploads/2015/01/song_list.jpg'
     elNative.src = this.customImg
