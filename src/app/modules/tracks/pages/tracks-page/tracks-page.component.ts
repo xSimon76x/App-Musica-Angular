@@ -1,8 +1,8 @@
-import { Component, OnDestroy, OnInit, inject } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { TracksModel } from '@core/models/tracks.model';
-import { TrackService } from '@modules/tracks/services/track.service';
 import { Subscription } from 'rxjs';
 import { SectionGenericComponent } from '../../../../shared/components/section-generic/section-generic.component';
+import { getAllRandom$, getAllTracks$ } from './function-inyect';
 
 @Component({
     selector: 'app-tracks-page',
@@ -11,14 +11,36 @@ import { SectionGenericComponent } from '../../../../shared/components/section-g
     standalone: true,
     imports: [SectionGenericComponent]
 })
-export class TracksPageComponent implements OnInit, OnDestroy{
+export class TracksPageComponent {
 
   tracksTrending: Array<TracksModel> = [];
   tracksRandom: Array<TracksModel> = [];
   listObserver$: Array<Subscription> = [];
-  private trackService = inject(TrackService);
 
-  ngOnInit(): void {
+  constructor(){
+    getAllTracks$()
+      .subscribe({
+        next: (response: any) => {
+          this.tracksTrending = response;
+        },
+        error: () => {
+          console.log('Error de conexion getAllTracks');
+        }
+      })
+    
+    getAllRandom$()
+    .subscribe({
+      next: (response) => {
+        this.tracksRandom = response;
+      },
+      error: () => {
+        console.log('Error de conexion getAllRandom');
+      }
+    })
+  }
+
+  //Almacenado solo para observar formas de utilizar ciertos srevicios
+  //ngOnInit(): void {
     // const { data }: any = (dataRaw as any).default;
     // this.tracksRandom = data;
 
@@ -35,36 +57,7 @@ export class TracksPageComponent implements OnInit, OnDestroy{
     //   });
 
     //   this.listObserver$ = [observer1$, observer2$];
-    this.loadDataRandom();
-    this.loadDataAll();  
-  }
-
-  async loadDataAll(): Promise<any> {
-    this.trackService.getAllTracks$()
-      .subscribe({
-        next: (response) => {
-          this.tracksTrending = response;
-        },
-        error: () => {
-          console.log('Error de conexion getAllTracks');
-        }
-      })
-  }
-
-  loadDataRandom(): void {
-    this.trackService.getAllRandom$()
-      .subscribe({
-        next: (response) => {
-          this.tracksRandom = response;
-        },
-        error: () => {
-          console.log('Error de conexion getAllRandom');
-        }
-      })
-  }
-
-  ngOnDestroy(): void {
-
-  }
+    //this.loadDataRandom();
+  //}
 
 }
