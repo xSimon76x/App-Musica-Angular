@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, inject } from '@angular/core';
 import { TracksModel } from '@core/models/tracks.model';
 import { MultimediaService } from '@shared/services/multimedia.service';
 import { ImgBrokenDirective } from '../../directives/img-broken.directive';
@@ -11,7 +11,7 @@ import { NgIf, NgClass } from '@angular/common';
     standalone: true,
     imports: [NgIf, ImgBrokenDirective, NgClass]
 })
-export class CardPlayerComponent implements OnInit{
+export class CardPlayerComponent {
   @Input({ required: true }) mode: 'small' | 'big' = 'small';
   @Input({ required: true , alias: 'trackObject'}) track: TracksModel = {
     _id: 1,
@@ -22,16 +22,10 @@ export class CardPlayerComponent implements OnInit{
     url:''
   };
 
-
-  constructor( private multimediaService: MultimediaService) {}
-
-  ngOnInit(): void {
-    
-  }
+  multimediaService = inject(MultimediaService)
 
   sendPlay(track: TracksModel): void {
-    
-    this.multimediaService.trackInfo$.next(track)
+    this.multimediaService.trackInfoSignal$.set(track);//TODO similar al next() que antes se usaba
   }
 
 }

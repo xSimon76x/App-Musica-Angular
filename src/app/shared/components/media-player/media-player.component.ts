@@ -4,6 +4,7 @@ import {
   ElementRef, 
   OnInit, 
   ViewChild, 
+  effect, 
   inject 
 } from '@angular/core';
 import { TracksModel } from '@core/models/tracks.model';
@@ -19,7 +20,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
     standalone: true,
     imports: [NgTemplateOutlet, NgIf, NgClass, AsyncPipe]
 })
-export class MediaPlayerComponent implements OnInit {
+export class MediaPlayerComponent {
 
   mockCover: TracksModel = {
     cover: 'https://i.pinimg.com/1200x/8a/ec/bd/8aecbdbb9aa2bd92ecf0cbe31e2aafe6.jpg',
@@ -37,46 +38,45 @@ export class MediaPlayerComponent implements OnInit {
 
   constructor( ) {
 
-  }
+    effect(() => {
+      const state =  this.multimediaService.playerStatusSignal$()
+      this.state = state;
+    })
 
-  //!? ngOnInit: Es el primer ciclo de vida ejecutable del componente, luego del CONSTRUCTOR(){}
-  ngOnInit(): void {
+    // this.multimediaService.myObservable3$
+    // .pipe(takeUntilDestroyed(this.destroyRef))
+    // .subscribe({
+    //   next: (responseOk) => {
+    //     //TODO next()
+    //     // console.log('El agua llega perfecto!', responseOk);
+    //   },
+    //   error: (responseFail) => {
+    //     console.log('Se tapo la tuberia', responseFail);
+    //   }
+    // });
 
-    this.multimediaService.myObservable3$
-    .pipe(takeUntilDestroyed(this.destroyRef))
-    .subscribe({
-      next: (responseOk) => {
-        //TODO next()
-        // console.log('El agua llega perfecto!', responseOk);
-      },
-      error: (responseFail) => {
-        console.log('Se tapo la tuberia', responseFail);
-      }
-    });
+    // this.multimediaService.trackInfo$
+    // .pipe(takeUntilDestroyed(this.destroyRef))
+    // .subscribe({
+    //   next: (responseOk) => {
 
-    this.multimediaService.trackInfo$
-    .pipe(takeUntilDestroyed(this.destroyRef))
-    .subscribe({
-      next: (responseOk) => {
+    //     console.log('Conexion a trackInfo!', responseOk);
+    //   },
+    //   error: (responseFail) => {
+    //     console.log('Error trackInfo mediaplayer', responseFail);
+    //   }
+    // });
 
-        console.log('Conexion a trackInfo!', responseOk);
-      },
-      error: (responseFail) => {
-        console.log('Error trackInfo mediaplayer', responseFail);
-      }
-    });
-
-    this.multimediaService.playerStatus$
-    .pipe(takeUntilDestroyed(this.destroyRef))
-    .subscribe({
-      next: (state) => {
-        this.state = state;
-      },
-      error: (responseFail) => {
-        console.log('Error multimediaService.playerStatus', responseFail);
-      }
-    });
-
+    // this.multimediaService.playerStatus$
+    // .pipe(takeUntilDestroyed(this.destroyRef))
+    // .subscribe({
+    //   next: (state) => {
+    //     this.state = state;
+    //   },
+    //   error: (responseFail) => {
+    //     console.log('Error multimediaService.playerStatus', responseFail);
+    //   }
+    // });
   }
 
   handlePosition(event: MouseEvent): void {
